@@ -1,0 +1,14 @@
+{
+  "name": "Segunda extension de prueba",
+  "version": "1.0",
+  "description": "La segunda extension que hago.",
+  "background_page": "background.html",
+  "browser_action": {
+    "default_icon": "icon.png",
+	"default_title": "Surfing statistics",
+	"popup": "report.html"
+  },
+  "permissions": [
+    "tabs", "http://*/*", "https://*/*"
+  ]
+}

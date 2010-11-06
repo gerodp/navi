@@ -1,0 +1,69 @@
+<html>
+<head>
+<script type="text/javascript" src="scripts.js"></script>
+<script>
+
+var sessionManager = null;
+
+var currentTabId = -1;
+
+function currentPageChanged(tab)
+{
+	if( tab!= null && tab != undefined )
+	{
+		sessionManager.currentPageChanged(tab.url);
+	}
+	else
+	{
+		sessionManager.currentPageChanged(null);
+	}
+}
+
+function closeEvent()
+{
+	DEBUG("Close event");
+	
+	chrome.tabs.onSelectionChanged.removeListener( onSelectionChanged );
+	
+	chrome.tabs.onUpdated.removeListener( onTabUpdated );
+	
+	currentPageChanged(null);
+}
+
+
+function onSelectionChanged(tabId, selectInfo)
+{
+	DEBUG("onSelectionChanged : " + tabId);
+	
+	currentTabId = tabId;
+	
+	chrome.tabs.get(tabId, currentPageChanged );
+}
+
+function onTabUpdated(tabId, changeInfo, tab)
+{
+	DEBUG("onTabUpdated");
+	
+	if( tabId == currentTabId && changeInfo.url != undefined )
+	{
+		currentPageChanged(tab.url);
+	}
+}
+
+function Initialize()
+{
+	sessionManager = new ActiveSessionManager();
+	
+	chrome.tabs.onSelectionChanged.addListener( onSelectionChanged );
+	
+	chrome.tabs.onUpdated.addListener( onTabUpdated );
+	
+	window.onbeforeunload = closeEvent;
+}
+
+
+Initialize();
+
+</script>
+</head>
+</html>
