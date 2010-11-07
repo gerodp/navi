@@ -96,12 +96,17 @@ function extractDomain(url)
 	if( url == null )
 		return null;
 	
-	var begin = 0;
-	var end   = url.length - 1;
-	
+	var begin  = 0;
+	var end    = url.length - 1;
 	var prefix = "http://";
 	
 	var httpSubStr = url.indexOf(prefix);
+	
+	if( httpSubStr == -1 )
+	{
+		prefix     = "https://";
+		httpSubStr = url.indexOf(prefix);
+	}
 	
 	if( httpSubStr == -1 )
 		return null;
@@ -120,14 +125,12 @@ function getCurrentTime()
 {
 	var date = new Date();
 	
-	 return date.getTime() / 1000;
+	return date.getTime() / 1000;
 }
 
 function ActiveSession(domain, initialTime)
-{
-	//DEBUG("Domain : " + domain + " Duration: " + initialTime);
-	
-	this.domain = domain;
+{	
+	this.domain      = domain;
 	this.initialTime = initialTime;
 }
 
