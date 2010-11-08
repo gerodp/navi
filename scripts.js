@@ -26,7 +26,7 @@ function dateToStr(date)
 	str += month;
 	str += '/';
 	
-	var day = date.getDay();
+	var day = date.getDate();
 	
 	if(day < 10 )
 		str += '0';
@@ -97,7 +97,7 @@ function extractDomain(url)
 		return null;
 	
 	var begin  = 0;
-	var end    = url.length - 1;
+	var end    = url.length;
 	var prefix = "http://";
 	
 	var httpSubStr = url.indexOf(prefix);
@@ -171,27 +171,6 @@ function SessionStorage()
 	this.database = null;
 }
 
-function SessionViewer()
-{
-	
-}
-
-SessionViewer.prototype.setSessions = function(sessions)
-{
-	if( sessions == null || sessions.length == 0 )
-	{
-		document.write("No data found.");
-	}
-	else
-	{		
-		for(var i = 0; i < sessions.length; i++)
-		{
-			document.write("Domain: " + sessions[i].getDomain() + " Date: " + sessions[i].getDate() + " Duration : " + sessions[i].getDuration() +  "<br/>");
-		}
-	}
-}
-
-
 SessionStorage.prototype.load = function(dbName)
 {
 	this.database = openDatabase(dbName, '1.0', 'Offline document storage', 5*1024*1024, null);
@@ -257,9 +236,7 @@ SessionStorage.prototype.getSessions = function(startDate, endDate, sessionListe
 }
 
 function ActiveSessionManager()
-{
-	DEBUG("new ActiveSessionManager");
-	
+{	
 	this.activeSession = null;
 	
 	this.sessionStorage = new SessionStorage();
@@ -276,6 +253,8 @@ ActiveSessionManager.prototype.terminateCurrentSession = function()
 		var se = new Session( this.activeSession.getDomain(), new Date(), activeSessionDuration );
 		
 		this.sessionStorage.updateSession( se );
+		
+		this.activeSession = null;
 	}
 }
 
@@ -295,9 +274,16 @@ ActiveSessionManager.prototype.currentPageChanged = function(url)
 		
 		this.sessionStorage.insertSession( se );
 	}
-	else
+}
+
+ActiveSessionManager.prototype.getSessions = function(startDate, endDate, sessionListener)
+{
+	//Updates database with current session info.
+	if( this.activeSession != null )
 	{
-		this.activeSession = null;
+		this.currentPageChanged( "http://" + this.activeSession.getDomain() );
 	}
+	
+	this.sessionStorage.getSessions(startDate, endDate, sessionListener);
 }
 
