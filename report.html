@@ -1,6 +1,7 @@
 <link rel="stylesheet" type="text/css" href="style.css" />
 <script type="text/javascript" src="scripts.js"></script>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="simpleTableView.js"></script>
 <script>
 
 var statChart		     = null;
@@ -11,6 +12,8 @@ var MAX_DOMAINS_DISPLAYED = 5;
 function StatisticsGraph()
 {
 }
+
+StatisticsGraph.prototype.drawPie
 
 StatisticsGraph.prototype.setSessions = function(sessions)
 {
@@ -38,20 +41,22 @@ StatisticsGraph.prototype.setSessions = function(sessions)
 			sessionsByTime.splice(insertIndex, 0, sessions[i]);
 		}
 		
-		var data = new google.visualization.DataTable();
+		var percentageData = new google.visualization.DataTable();
+		var timeData	   = new google.visualization.DataTable();
 		
-		data.addColumn('string', 'Domain');
-        data.addColumn('number', 'HH:MM:SS');
+		percentageData.addColumn('string', 'Domain');
+        percentageData.addColumn('number', 'HH:MM:SS');
 		
-		var tableHtml = "<table align='center'><tbody><tr><th>Domain</th><th>Time</th></tr>";
+		timeData.addColumn('string', 'Domain');
+		timeData.addColumn('string', 'Duration');
 		
 		for(var i = 0; i < Math.min(sessionsByTime.length, MAX_DOMAINS_DISPLAYED); i++)
 		{
-			data.addRow([sessionsByTime[i].getDomain(), sessionsByTime[i].getDuration()/totalTime]);
+			percentageData.addRow([sessionsByTime[i].getDomain(), sessionsByTime[i].getDuration()/totalTime]);
 			
-			var icoElement = "<img src='http://" + sessionsByTime[i].getDomain() + "/favicon.ico'/>";
+			var icoElement = "<img src='http://" + sessionsByTime[i].getDomain() + "/favicon.ico' width=16 height=16/>";
 			
-			tableHtml += "<tr>" +"<td>"+ icoElement + " "+ sessionsByTime[i].getDomain() +"</td>" + "<td>" + timeToStr(sessionsByTime[i].getDuration(),false)+ "</td>" + "</tr>";
+			timeData.addRow([icoElement + sessionsByTime[i].getDomain(), timeToStr(sessionsByTime[i].getDuration(),false)] );
 		}
 		
 		var othersTime = 0;
@@ -63,20 +68,19 @@ StatisticsGraph.prototype.setSessions = function(sessions)
 		
 		if( sessionsByTime.length > MAX_DOMAINS_DISPLAYED )
 		{
-			data.addRow(["Others", othersTime/totalTime]);
-		
-			tableHtml += "<tr>" +"<td>Others</td>" + "<td>" + timeToStr(othersTime,false)+ "</td>" + "</tr>";
+			percentageData.addRow(["Others", othersTime/totalTime]);
+			
+			timeData.addRow(["Others", timeToStr(othersTime,false)]);
 		}
 		
-		tableHtml += "</tbody></table>";
-		
 		  // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('pieDiv'));	
-        chart.draw(data, {width: 500, height: 300, is3D: true});
+        var pieChart = new google.visualization.PieChart(document.getElementById('pieDiv'));	
+        pieChart.draw(percentageData, {width: 500, height: 300, is3D: true});
+		
+		var simpleTable = new SimpleTableView(document.getElementById("tableDiv"));
+		simpleTable.draw(timeData, {} );
 		
 		document.getElementById("navTime").innerText = timeToStr( totalTime,true );
-		
-		document.getElementById("tableDiv").innerHTML = tableHtml;
 	}
 }
 
