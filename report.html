@@ -3,8 +3,8 @@
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script>
 
-var statChart		   = null;
-var surfSessionStorage = null;
+var statChart		     = null;
+var sessionManager = null;
 
 var MAX_DOMAINS_DISPLAYED = 5;
 
@@ -88,18 +88,16 @@ function showOpenedTabs()
     // Set a callback to run when the Google Visualization API is loaded.
     google.setOnLoadCallback(drawTodayChart);
 	
-	surfSessionStorage = new SessionStorage();
+	sessionManager = chrome.extension.getBackgroundPage().sessionManager;
 	
 	statChart = new StatisticsGraph();
-
-	surfSessionStorage.load( DATABASE_NAME );
 }
 
 function drawTodayChart()
 {
 	document.getElementById("navText").innerText = "Today you navigated ";
 	
-	surfSessionStorage.getSessions(new Date(), new Date(), statChart);
+	sessionManager.getSessions(new Date(), new Date(), statChart);
 }
 
 function drawLastNDaysChart(n)
@@ -114,7 +112,7 @@ function drawLastNDaysChart(n)
 	
 	startDate.setTime( endDate.getTime() - n*24*60*60*1000);
 	
-	surfSessionStorage.getSessions(startDate, endDate, statChart);
+	sessionManager.getSessions(startDate, endDate, statChart);
 	
 	document.getElementById("navText").innerText = "Last " + n + " days you navigated ";
 }

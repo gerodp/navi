@@ -34,7 +34,7 @@ function onTabUpdated(tabId, changeInfo, tab)
 	
 	if( tabId == currentTabId && changeInfo.url != undefined )
 	{
-		currentPageChanged(tab.url);
+		currentPageChanged(tab);
 	}
 }
 
