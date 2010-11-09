@@ -1,7 +1,11 @@
 body
 {
 	min-width: 600px;
-	min-height: 400px
+	min-height: 400px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
 }
 
 #mainDiv
@@ -10,30 +14,141 @@ body
 	text-align: center;
 	min-width: 600px;
 	min-height: 400px;
-	margin-top: 15px;
-	margin-bottom: 15px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #0080FF;
+	border-radius: 5px;
+}
+
+#popupBarDiv
+{
+	position: relative;
+	text-align: center;
+	font-size: 12px;
+	min-height: 16px;
+	background-color: #81BEF7;
+	border-radius: 5px;
+	font-family: verdana;
+	color: white;
+}
+
+#titleDiv
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	min-width: 100%;
+	text-align: center;
+	font-weight: bold;
+}
+
+#winButtonsDiv
+{
+	position: absolute;
+	top: 0;
+	right: 0;
+	text-align: center;
+}
+
+#winButtonsDiv a:link
+{
+	color: white;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+#winButtonsDiv a:visited
+{
+	color: white;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+#winButtonsDiv a:hover
+{
+	color: white;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+#winButtonsDiv a:active
+{
+	color: white;
+	text-decoration: none;
+	font-weight: bold;
 }
 
 #headerDiv
 {
 	position: relative;
 	text-align: center;
+	margin-top: 5px;
+	margin-bottom: 0px;
+	margin-left: 5px;
+	margin-right: 5px;
 	min-height: 20px;
 	font-size: 20px;
 	font-weight: bold;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #0080FF;
+	border-radius: 5px;
 }
 
 #chartDiv
 {
 	position: relative;
 	text-align: center;
+	margin-top: 5px;
+	margin-bottom: 0px;
+	margin-left: 5px;
+	margin-right: 5px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #0080FF;
+	border-radius: 5px;
 }
 
 #tableDiv
 {
 	position: relative;
 	text-align: center;
+	margin-top: 5px;
+	margin-bottom: 0px;
+	margin-left: 5px;
+	margin-right: 5px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #0080FF;
+	border-radius: 5px;
+}
+
+#tableDiv table
+{
+	margin-top: 5px;
 	margin-bottom: 5px;
+	border-width: 1px;
+	border-spacing: 0px;
+	border-style: solid;
+	border-collapse: collapse;
+	border-color: #D8D8D8;
+}
+
+#tableDiv th
+{
+	border-width: 1px;
+	border-spacing: 0px;
+	background-color: #F6FFCD;
+	border-style: solid;
+	border-color: #D8D8D8;
+}
+#tableDiv td
+{
+	border-width: 1px;
+	border-style: solid;
+	border-color: #D8D8D8;
 }
 
 #bottomDiv
@@ -42,25 +157,36 @@ body
 	text-align: center;
 	min-height: 20px;
 	vertical-align: middle;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-left: 5px;
+	margin-right: 5px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #0080FF;
+	border-radius: 5px;
 }
 
-table
+#bottomDiv a:link
 {
-	border-width: 1px;
-	border-spacing: 0px;
-	border-style: solid;
-	border-collapse: collapse;
+	text-decoration: none;
+	color: #0080FF;
 }
 
-th
+#bottomDiv a:visited
 {
-	border-width: 1px;
-	border-spacing: 0px;
-	background-color: #F6FFCD;
-	border-style: solid;
+	text-decoration: none;
+	color: #0080FF;
 }
-td
+
+#bottomDiv a:hover
 {
-	border-width: 1px;
-	border-style: solid;
+	text-decoration: none;
+	color: #0080FF;
+}
+
+#bottomDiv a:active
+{
+	text-decoration: none;
+	color: #0080FF;
 }

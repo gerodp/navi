@@ -54,7 +54,7 @@ StatisticsGraph.prototype.setSessions = function(sessions)
 		{
 			percentageData.addRow([sessionsByTime[i].getDomain(), sessionsByTime[i].getDuration()/totalTime]);
 			
-			var icoElement = "<img src='http://" + sessionsByTime[i].getDomain() + "/favicon.ico' width=16 height=16/>";
+			var icoElement = "<img src='http://" + sessionsByTime[i].getDomain() + "/favicon.ico' width=16 height=16/>&nbsp;";
 			
 			timeData.addRow([icoElement + sessionsByTime[i].getDomain(), timeToStr(sessionsByTime[i].getDuration(),false)] );
 		}
@@ -126,6 +126,10 @@ showOpenedTabs();
 </script>
 <body>
 <div id="mainDiv">
+	<div id ="popupBarDiv">
+		<div id="titleDiv">Navi v0.1(Beta)</div>
+		<div id="winButtonsDiv"><a href="javascript:window.close()">X</a>&nbsp;&nbsp;</div>
+	</div>
 	<div id ="headerDiv">
 		<span id="navText"></span>
 		<span id="navTime"></span>
@@ -135,7 +139,7 @@ showOpenedTabs();
 	</div>
 	<div id="tableDiv"></div>
 	<div id="bottomDiv">
-		<a href="javascript:drawTodayChart()">Today</a>|<a href="javascript:drawLastNDaysChart(7)">Last seven days</a>|<a href="javascript:drawLastNDaysChart(30)">Last thirty days</a>
+		<a href="javascript:drawTodayChart()" class="button">Today</a>&nbsp;-&nbsp;<a href="javascript:drawLastNDaysChart(7)" class="button">Last seven days</a>&nbsp;-&nbsp;<a href="javascript:drawLastNDaysChart(30)" class="button">Last thirty days</a>
 	</div>
 </div>
 </body>
